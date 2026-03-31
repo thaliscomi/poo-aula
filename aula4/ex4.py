@@ -1,3 +1,4 @@
+# questão 4
 a = input()
 soma = 0
 b = a.split(',')

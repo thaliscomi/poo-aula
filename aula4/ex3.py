@@ -1,3 +1,4 @@
+# questão 3
 a = input()
 
 soma = 0

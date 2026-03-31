@@ -1,5 +1,5 @@
+# questão 2
 a = input('escreva a expressão (ex: 20+100)')
-
 
 if '+' in a:
     x,y = a.split('+')
@@ -16,4 +16,4 @@ elif '*' in a:
 elif '/' in a:
     x,y = a.split('+')
     resultado = int(x) + int(y)
-    print(resultado)
+    # print(resultado)
