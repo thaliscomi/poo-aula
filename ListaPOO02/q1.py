@@ -16,6 +16,7 @@ class Triangulo:
     def calc_area(self):
         return self.__b * self.__h / 2
     
+    
 # ----------- CIRCULO --------------
 import math
 
