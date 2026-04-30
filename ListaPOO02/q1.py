@@ -181,4 +181,4 @@ class UI:
         print("Valor do ingresso = R$", i.calc_valor())
 
 # parte de inicialização do programa
-UI.main() 
+UI.main()
