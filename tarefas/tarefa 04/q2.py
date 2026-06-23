@@ -32,7 +32,6 @@ class UI:
         id = int(input("ID: "))
         nome = input("Nome: ")
         desc = input("Descrição: ")
-
         self.playlists.append(Playlist(id, nome, desc))
     def listar_playlists(self):
         for p in self.playlists:
