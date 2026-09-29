@@ -24,17 +24,14 @@ class ManterHorarioUI:
                 profissional = Service.profissional_listar_id(obj.get_id_profissional())
                 if cliente != None: cliente = cliente.get_nome()
                 if servico != None: servico = servico.get_descricao()
-                if profissional!= None: profissional = profissional.get_especialidade()
-                dic.append({"id" : obj.get_id(), 
-                            "data" : obj.get_data(),
-                            "confirmado" : obj.get_confirmado(), 
-                            "cliente" : cliente,
-                            "serviço" : servico,
-                            "profissional" : profissional})
+                if profissional != None: profissional = profissional.get_nome()
+                dic.append({"id" : obj.get_id(), "data" : obj.get_data(),
+                "confirmado" : obj.get_confirmado(), "cliente" : cliente,
+                "serviço" : servico, "profissional" : profissional})
             df = pd.DataFrame(dic)
             st.dataframe(df)
 
-    def inserir():#associado a cliente, profisional, e serviço
+    def inserir():
         clientes = Service.cliente_listar()
         servicos = Service.servico_listar()
         profissionais = Service.profissional_listar()
@@ -70,7 +67,8 @@ class ManterHorarioUI:
             id_profissional = None if op.get_id_profissional() in [0, None] else op.get_id_profissional()
             cliente = st.selectbox("Informe o novo cliente", clientes, next((i for i, c in enumerate(clientes) if c.get_id() == id_cliente), None))
             servico = st.selectbox("Informe o novo serviço", servicos, next((i for i, s in enumerate(servicos) if s.get_id() == id_servico), None))
-            profissional = st.selectbox("Informe o novo profissional", profissionais, next((i for i, s in enumerate(profissionais) if s.get_id() == id_profissional), None))
+            profissional = st.selectbox("Informe o novo profissional", profissionais,\
+                           next((i for i, s in enumerate(profissionais) if s.get_id() == id_profissional), None))
             if st.button("Atualizar"):
                 id_cliente = None
                 id_servico = None

@@ -1,35 +1,41 @@
 from models.cliente import Cliente
 import json
 
-class ClienteDAO():
+class ClienteDAO:
     def __init__(self):
-        self.__arquivo = "cliente.json"
-        self.__obj = []
+        self.__arquivo = "clientes.json"
+        self.__objetos = []
         self.__abrir()
-    
+
     def inserir(self, obj):
-        self.__obj.append(obj)
+        # gerar um novo id com o maior valor existente mais um
+        id = 0
+        if len(self.__objetos) > 0:
+            for aux in self.__objetos:
+                if aux.get_id() > id: id = aux.get_id()
+        obj.set_id(id + 1)
+        self.__objetos.append(obj)
         self.__salvar()
-    
-    def listar(self):
-        return self.__obj
+
+    def listar(self):                
+        return self.__objetos
 
     def listar_id(self, id):
-        for obj in self.__obj:
+        for obj in self.__objetos:
             if obj.get_id() == id: return obj
         return None
 
     def atualizar(self, obj):
         aux = self.listar_id(obj.get_id())
         if aux != None:
-            self.__obj.remove(aux)
-            self.__obj.append(obj)
+            self.__objetos.remove(aux)
+            self.__objetos.append(obj)
             self.__salvar()
 
     def excluir(self, id):
         aux = self.listar_id(id)
         if aux != None:
-            self.__obj.remove(aux)
+            self.__objetos.remove(aux)
             self.__salvar()
 
     def __abrir(self):  
@@ -37,14 +43,14 @@ class ClienteDAO():
             arquivo = open(self.__arquivo, mode = "r")
             list_dic = json.load(arquivo)
             arquivo.close()
-            self.__obj = []
+            self.__objetos = []
             for dic in list_dic:
                 obj = Cliente.from_json(dic)
-                self.__obj.append(obj)
+                self.__objetos.append(obj)
         except FileNotFoundError:
             pass
 
     def __salvar(self):    
         arquivo = open(self.__arquivo, mode = "w")
-        json.dump(self.__obj, arquivo, default = Cliente.to_json, indent = 2)
+        json.dump(self.__objetos, arquivo, default = Cliente.to_json, indent = 2)
         arquivo.close()

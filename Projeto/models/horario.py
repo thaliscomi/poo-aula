@@ -1,4 +1,5 @@
 from datetime import datetime
+
 class Horario:
     def __init__(self, id, data):
         self.set_id(id)
@@ -8,8 +9,8 @@ class Horario:
         self.set_id_servico(0)
         self.set_id_profissional(0)
 
-    def __str__(self): 
-        return f"{self.__id} - {self.__data.strftime('%d/%m/%Y %H:%M')} - {self.__confirmado} - {self.__id_cliente} - {self.__id_servico} - {self.__id_profissional}"
+    def __str__(self):
+        return f"{self.__id} - {self.__data.strftime('%d/%m/%Y %H:%M')} - {self.__confirmado}"
 
     def get_id(self): return self.__id
     def get_data(self): return self.__data
@@ -26,14 +27,12 @@ class Horario:
     def set_id_profissional(self, id_profissional): self.__id_profissional = id_profissional
 
     def to_json(self):
-        dic = {"id":self.__id, 
-               "data":self.__data.strftime("%d/%m/%Y %H:%M"),
-               "confirmado":self.__confirmado, 
-               "id_cliente":self.__id_cliente,
-               "id_servico":self.__id_servico,
-               "id_profissional": self.__id_profissional
-               }
+        dic = {"id":self.__id, "data":self.__data.strftime("%d/%m/%Y %H:%M"), \
+            "confirmado":self.__confirmado, "id_cliente":self.__id_cliente,   \
+            "id_servico":self.__id_servico, "id_profissional":self.__id_profissional
+        }
         return dic
+
     @staticmethod
     def from_json(dic):
         horario = Horario(dic["id"], datetime.strptime(dic["data"], "%d/%m/%Y %H:%M"))
@@ -41,4 +40,4 @@ class Horario:
         horario.set_id_cliente(dic["id_cliente"])
         horario.set_id_servico(dic["id_servico"])
         horario.set_id_profissional(dic["id_profissional"])
-        return horario
+        return horari
