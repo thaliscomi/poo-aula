@@ -25,6 +25,14 @@ class ClienteDAO:
             if obj.get_id() == id: return obj
         return None
 
+    def listar_nome(self, letra):
+        cliente_letras = []
+        if len(self.__objetos) > 0:
+            for aux in self.__objetos:
+                if letra in aux.get_nome(): cliente_letras.append(aux)
+            return cliente_letras
+                    
+
     def atualizar(self, obj):
         aux = self.listar_id(obj.get_id())
         if aux != None:

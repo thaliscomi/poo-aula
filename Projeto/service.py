@@ -6,7 +6,7 @@ from models.horario import Horario
 from models.horariodao import HorarioDAO
 from models.profissional import Profissional
 from models.profissionaldao import ProfissionalDAO
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class Service:
     @staticmethod
@@ -21,6 +21,9 @@ class Service:
     @staticmethod
     def cliente_listar_id(id):
         return ClienteDAO().listar_id(id)
+    @staticmethod
+    def cliente_listar_nome(letra):
+        return ClienteDAO().listar_nome(letra)
     @staticmethod
     def cliente_atualizar(id, nome, email, fone, senha):
         obj = Cliente(id, nome, email, fone, senha)
@@ -99,6 +102,16 @@ class Service:
                 r.append(h)
         r.sort (key = lambda h : h.get_data())
         return r
+    def horario_abrir_agenda(data, hora_inicio, hora_fim, intervalo, id_profissional):
+        data_inicio = datetime.strptime(data + " " + hora_inicio, "%d/%m/%Y %H:%M")
+        data_fim = datetime.strptime(data + " " + hora_fim, "%d/%m/%Y %H:%M")
+        delta = timedelta(minutes = intervalo)
+        x = data_inicio
+        while x <= data_fim:
+            # insira um horário
+            Service.horario_inserir(x, False, None, None, id_profissional)
+            # vá para o próximo horário
+            x = x + delta
 
     @staticmethod
     def profissional_inserir(nome, email, especialidade, senha):

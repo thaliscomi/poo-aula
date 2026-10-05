@@ -4,42 +4,35 @@ class UI:
     @staticmethod
     def main():
         op = 0
-        while op != 9:
+        while op != 10:
             op = UI.menu()
             if op == 1: UI.cliente_inserir()
             if op == 2: UI.cliente_listar()
             if op == 3: UI.cliente_atualizar()
             if op == 4: UI.cliente_excluir()
-            if op == 5: UI.servico_inserir()
-            if op == 6: UI.servico_listar()
-            if op == 7: UI.servico_atualizar()
-            if op == 8: UI.servico_excluir()
-            if op == 5: UI.horario_inserir()
-            if op == 6: UI.horario_listar()
-            if op == 7: UI.horario_atualizar()
-            if op == 8: UI.horario_excluir()
-            if op == 5: UI.profissional_inserir()
-            if op == 6: UI.profissional_listar()
-            if op == 7: UI.profissional_atualizar()
-            if op == 8: UI.profissional_excluir()
+            if op == 5: UI.cliente_listar_nome()
+            if op == 6: UI.servico_inserir()
+            if op == 7: UI.servico_listar()
+            if op == 8: UI.servico_atualizar()
+            if op == 9: UI.servico_excluir()
 
     @staticmethod
     def menu():
         print("Clientes ----------------------------------")
-        print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir")
+        print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir 5-listar nome")
         print("Serviços ----------------------------------")
-        print("5-Inserir, 6-Listar, 7-Atualizar, 8-Excluir")
+        print("6-Inserir, 7-Listar, 8-Atualizar, 9-Excluir")
         print("Outras opções -----------------------------")
-        print("9-Fim")
+        print("10-Fim")
         return int(input("Informe uma opção: "))
 
     @staticmethod
     def cliente_inserir():
-        id = int(input("Informe o id: "))
         nome = input("Informe o nome: ")
         email = input("Informe o e-mail: ")
         fone = input("Informe o telefone: ")
-        Service.cliente_inserir(id, nome, email, fone)
+        senha = input("Informe a senha: ")
+        Service.cliente_inserir(nome, email, fone, senha)
 
     @staticmethod
     def cliente_listar():
@@ -59,6 +52,11 @@ class UI:
         for obj in Service().cliente_listar(): print(obj)
         id = int(input("Informe o id do cliente a ser excluído: "))
         Service.cliente_excluir(id)
+
+    @staticmethod
+    def cliente_listar_nome():
+        letra = input('qual nome quer procurar na lista de clientes?')
+        Service.cliente_listar_nome(letra)
 
 
     @staticmethod
