@@ -25,6 +25,13 @@ class ServicoDAO:
             if obj.get_id() == id: return obj
         return None
 
+    def listar_descricao(self, letra):
+        servico_letras = []
+        if len(self.__objetos) > 0:
+            for aux in self.__objetos:
+                if letra in aux.get_descricao(): servico_letras.append(aux)
+            return servico_letras
+
     def atualizar(self, obj):
         aux = self.listar_id(obj.get_id())
         if aux != None:

@@ -63,6 +63,9 @@ class Service:
     @staticmethod
     def servico_excluir(id):
         ServicoDAO().excluir(id)
+    @staticmethod
+    def servico_listar_descricao(letra):
+        return ServicoDAO().listar_descricao(letra)
 
 
     @staticmethod

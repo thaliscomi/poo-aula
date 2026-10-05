@@ -4,7 +4,7 @@ class UI:
     @staticmethod
     def main():
         op = 0
-        while op != 10:
+        while op != 11:
             op = UI.menu()
             if op == 1: UI.cliente_inserir()
             if op == 2: UI.cliente_listar()
@@ -15,15 +15,16 @@ class UI:
             if op == 7: UI.servico_listar()
             if op == 8: UI.servico_atualizar()
             if op == 9: UI.servico_excluir()
+            if op == 10: UI.servico_listar_descricao()
 
     @staticmethod
     def menu():
         print("Clientes ----------------------------------")
-        print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir 5-listar nome")
+        print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir 5-pesquisa por nome")
         print("Serviços ----------------------------------")
-        print("6-Inserir, 7-Listar, 8-Atualizar, 9-Excluir")
+        print("6-Inserir, 7-Listar, 8-Atualizar, 9-Excluir 10-listar por descriÇão")
         print("Outras opções -----------------------------")
-        print("10-Fim")
+        print("11-Fim")
         return int(input("Informe uma opção: "))
 
     @staticmethod
@@ -84,3 +85,7 @@ class UI:
         id = int(input("Informe o id do serviço a ser excluído: "))
         Service.servico_excluir(id)
 
+    @staticmethod
+    def servico_listar_descricao():
+        letra = input('informe uma palavra pra procurar nas descrições de serviços')
+        Service.servico_listar_descricao(letra)
