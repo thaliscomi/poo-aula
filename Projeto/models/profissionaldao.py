@@ -1,50 +1,24 @@
 from models.profissional import Profissional
+from models.dao import DAO
 import json
 
-class ProfissionalDAO():
+class ProfissionalDAO(DAO):
     def __init__(self):
-        self.__arquivo = "profissional.json"
-        self.__obj = []
-        self.__abrir()
-    
-    def inserir(self, obj):
-        self.__obj.append(obj)
-        self.__salvar()
-    
-    def listar(self):
-        return self.__obj
+        super().__init__("profissionais.json")
 
-    def listar_id(self, id):
-        for obj in self.__obj:
-            if obj.get_id() == id: return obj
-        return None
-
-    def atualizar(self, obj):
-        aux = self.listar_id(obj.get_id())
-        if aux != None:
-            self.__obj.remove(aux)
-            self.__obj.append(obj)
-            self.__salvar()
-
-    def excluir(self, id):
-        aux = self.listar_id(id)
-        if aux != None:
-            self.__obj.remove(aux)
-            self.__salvar()
-
-    def __abrir(self):  
+    def _abrir(self):  
         try:  
-            arquivo = open(self.__arquivo, mode = "r")
+            arquivo = open(self._arquivo, mode = "r")
             list_dic = json.load(arquivo)
             arquivo.close()
-            self.__obj = []
+            self._objetos = []
             for dic in list_dic:
                 obj = Profissional.from_json(dic)
-                self.__obj.append(obj)
+                self._objetos.append(obj)
         except FileNotFoundError:
             pass
 
-    def __salvar(self):    
-        arquivo = open(self.__arquivo, mode = "w")
-        json.dump(self.__obj, arquivo, default = Profissional.to_json, indent = 2)
+    def _salvar(self):    
+        arquivo = open(self._arquivo, mode = "w")
+        json.dump(self._objetos, arquivo, default = Profissional.to_json, indent = 2)
         arquivo.close()
